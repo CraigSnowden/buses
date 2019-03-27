@@ -21,27 +21,33 @@ class BusTracker {
                 return;
               }
               resolve(
-                response.data.filter((route) => {
+                response.data
+                  .filter(route => {
                     if (this.services.length == 0) {
-                        return true;
+                      return true;
                     } else {
-                        return this.services.includes(route.routeName);
+                      return this.services.includes(route.routeName);
                     }
-                }).map(route => {
-                  if (this.route_colors[route.routeName] == undefined) {
-                    this.route_colors[route.routeName] = randomColor({
-                      luminosity: "dark"
-                    });
-                  }
-                  return {
-                    id: route.routeName,
-                    color: this.route_colors[route.routeName],
-                    destination: route.departures[0].destination,
-                    departures: route.departures.map(dep => {
-                      return dep.departureTimeUnix;
-                    })
-                  };
-                })
+                  })
+                  .map(route => {
+                    if (this.route_colors[route.routeName] == undefined) {
+                      this.route_colors[route.routeName] = randomColor({
+                        luminosity: "dark"
+                      });
+                    }
+                    return {
+                      id: route.routeName,
+                      color: this.route_colors[route.routeName],
+                      destination: route.departures[0].destination,
+                      departures: route.departures
+                        .sort((a, b) =>
+                          a.departureTimeUnix > b.departureTimeUnix ? 1 : -1
+                        )
+                        .map(dep => {
+                          return dep.departureTimeUnix;
+                        })
+                    };
+                  })
               );
             })
             .catch(reason => {
