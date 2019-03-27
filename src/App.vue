@@ -18,7 +18,6 @@ export default {
 <style>
 html {
   font-size: 25px;
-  background-color: #bbbbbb;
 }
 #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
