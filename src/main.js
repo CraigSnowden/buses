@@ -2,10 +2,10 @@ import Vue from "vue";
 import App from "./App.vue";
 
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { faBus, faTrain } from "@fortawesome/free-solid-svg-icons";
+import { faBus, faTrain, faBed } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
-library.add(faBus, faTrain);
+library.add(faBus, faTrain, faBed);
 Vue.component("font-awesome-icon", FontAwesomeIcon);
 
 Vue.config.productionTip = false;

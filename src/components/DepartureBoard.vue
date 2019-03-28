@@ -1,8 +1,12 @@
 <template>
-  <div>
+  <div v-if="routes.length">
     <transition-group name="routes" tag="div">
       <Route :route="route" :key="route.id" v-for="route in routes" />
     </transition-group>
+  </div>
+  <div class="empty" v-else>
+    <font-awesome-icon icon="bed" size="4x" />
+    <h1>No services</h1>
   </div>
 </template>
 
@@ -24,7 +28,7 @@ export default {
     Route
   },
   mounted: function() {
-    this.update();
+    //this.update();
     setInterval(() => this.update(), 60000);
   },
   methods: {
@@ -44,5 +48,10 @@ export default {
 <style>
 .routes-move {
   transition: transform 1s;
+}
+
+.empty {
+  font-size: 4rem;
+  text-align: center;
 }
 </style>
