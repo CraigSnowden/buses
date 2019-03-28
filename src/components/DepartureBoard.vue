@@ -1,9 +1,7 @@
 <template>
   <div>
     <transition-group name="routes" tag="div">
-      <template v-for="route in routes">
-        <Route :route="route" :key="route.id" />
-      </template>
+      <Route :route="route" :key="route.id" v-for="route in routes" />
     </transition-group>
   </div>
 </template>
