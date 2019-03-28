@@ -42,6 +42,7 @@ class BusTracker {
                         })
                     };
                   })
+                  .sort((a, b) => (a.departures[0] > b.departures[0] ? 1 : -1))
               );
             })
             .catch(reason => {
