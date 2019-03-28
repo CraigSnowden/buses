@@ -8,7 +8,7 @@ export default {
   props: ["departure"],
   computed: {
     minutes: function() {
-      let minutesUntil = (this.departure - Date.now() / 1000) / 60;
+      let minutesUntil = (this.departure.time - Date.now() / 1000) / 60;
       if (minutesUntil < 3) {
         return "DUE";
       }

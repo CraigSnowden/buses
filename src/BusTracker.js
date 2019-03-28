@@ -37,8 +37,14 @@ class BusTracker {
                         .sort((a, b) =>
                           a.departureTimeUnix > b.departureTimeUnix ? 1 : -1
                         )
+                        .filter(
+                          dep => dep.departureTimeUnix > Date.now() / 1000
+                        )
                         .map(dep => {
-                          return dep.departureTimeUnix;
+                          return {
+                            trip_id: dep.tripId,
+                            time: dep.departureTimeUnix
+                          };
                         })
                     };
                   })
