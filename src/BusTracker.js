@@ -31,6 +31,7 @@ class BusTracker {
                     return {
                       id: route.routeName,
                       color: this.getServiceColor(route.routeName).color,
+                      text_color: this.getServiceColor(route.routeName).text_color,
                       destination: route.departures[0].destination,
                       icon: route.routeName.startsWith("T") ? "train" : "bus",
                       departures: route.departures
