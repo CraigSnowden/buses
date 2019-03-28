@@ -14,10 +14,7 @@ import config from "../../config.json";
 export default {
   name: "DepartureBoard",
   data: () => {
-    const tracker = new BusTracker(
-      config.stops,
-      config.services
-    );
+    const tracker = new BusTracker(config.stops, config.services);
     return {
       routes: [],
       tracker: tracker
