@@ -1,6 +1,7 @@
 <template>
   <div class="route-container">
     <div class="number" v-bind:style="{ backgroundColor: route.color }">
+      <font-awesome-icon :icon="route.icon" />
       {{ route.id }}
     </div>
     <div class="route">

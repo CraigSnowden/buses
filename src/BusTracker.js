@@ -1,16 +1,14 @@
 import axios from "axios";
-import { timingSafeEqual } from "crypto";
+import RouteColors from "./RouteColors.json";
 
 class BusTracker {
   constructor(stop_codes, services = []) {
     this.stop_codes = stop_codes;
     this.services = services;
-    this.route_colors = {};
   }
 
   getRoutes() {
     this.stop_promises = [];
-    let randomColor = require("randomcolor");
     this.stop_codes.forEach(code => {
       this.stop_promises.push(
         new Promise((resolve, reject) => {
@@ -30,15 +28,11 @@ class BusTracker {
                     }
                   })
                   .map(route => {
-                    if (this.route_colors[route.routeName] == undefined) {
-                      this.route_colors[route.routeName] = randomColor({
-                        luminosity: "dark"
-                      });
-                    }
                     return {
                       id: route.routeName,
-                      color: this.route_colors[route.routeName],
+                      color: this.getServiceColor(route.routeName).color,
                       destination: route.departures[0].destination,
+                      icon: route.routeName.startsWith("T") ? "train" : "bus",
                       departures: route.departures
                         .sort((a, b) =>
                           a.departureTimeUnix > b.departureTimeUnix ? 1 : -1
@@ -57,6 +51,10 @@ class BusTracker {
       );
     });
     return Promise.all(this.stop_promises);
+  }
+
+  getServiceColor(service) {
+    return RouteColors.filter(route => route.service_name == service)[0];
   }
 }
 

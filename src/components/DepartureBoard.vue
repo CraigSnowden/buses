@@ -17,7 +17,10 @@ export default {
   data: () => {
     return {
       routes: [],
-      tracker: new BusTracker(["36290128", "36245242"], ["300", "T50", "22", "400"])
+      tracker: new BusTracker(
+        ["36290128", "36245242"],
+        ["300", "T50", "22", "400"]
+      )
     };
   },
   components: {
