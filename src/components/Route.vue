@@ -16,6 +16,7 @@
         :departure="departure"
         :key="departure.trip_id"
         v-for="departure in route.departures.slice(0, 3)"
+        class="departure"
       />
     </transition-group>
   </div>
@@ -65,6 +66,10 @@ export default {
   border-radius: 5px;
   font-size: 2rem;
   font-weight: bold;
+}
+
+.departure {
+  transition: all 1s;
 }
 
 .departures-enter-active,
