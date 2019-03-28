@@ -11,16 +11,18 @@
 <script>
 import Route from "./Route.vue";
 import BusTracker from "../BusTracker.js";
+import config from "../../config.json";
 
 export default {
   name: "DepartureBoard",
   data: () => {
+    const tracker = new BusTracker(
+      config.stops,
+      config.services
+    );
     return {
       routes: [],
-      tracker: new BusTracker(
-        ["36290128", "36245242"],
-        [] //["300", "T50", "22", "400"]
-      )
+      tracker: tracker
     };
   },
   components: {
