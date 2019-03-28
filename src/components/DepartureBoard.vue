@@ -1,10 +1,10 @@
 <template>
-  <div class="hello">
-    <ul>
+  <div>
+    <transition-group name="routes" tag="div">
       <template v-for="route in routes">
         <Route :route="route" :key="route.id" />
       </template>
-    </ul>
+    </transition-group>
   </div>
 </template>
 
@@ -19,7 +19,7 @@ export default {
       routes: [],
       tracker: new BusTracker(
         ["36290128", "36245242"],
-        ["300", "T50", "22", "400"]
+        [] //["300", "T50", "22", "400"]
       )
     };
   },
@@ -33,9 +33,19 @@ export default {
   methods: {
     update() {
       this.tracker.getRoutes().then(routes => {
-        this.routes = [].concat.apply([], routes);
+        this.routes = [].concat
+          .apply([], routes)
+          .sort((a, b) =>
+            a.departures[0].time > b.departures[0].time ? 1 : -1
+          );
       });
     }
   }
 };
 </script>
+
+<style>
+.routes-move {
+  transition: transform 1s;
+}
+</style>
