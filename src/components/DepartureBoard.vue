@@ -28,7 +28,7 @@ export default {
     Route
   },
   mounted: function() {
-    //this.update();
+    this.update();
     setInterval(() => this.update(), 60000);
   },
   methods: {
