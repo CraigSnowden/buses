@@ -1,5 +1,5 @@
 <template>
-  <div>{{ minutes }}</div>
+  <div v-bind:class="{ real_time: departure.real_time }">{{ minutes }}</div>
 </template>
 
 <script>
@@ -25,10 +25,14 @@ div {
   padding: 20px;
   margin: 10px;
   display: inline-block;
-  background-color: black;
+  background-color: #555;
   color: white;
   border-radius: 5px;
   font-size: 2rem;
   font-weight: bold;
+}
+
+.real_time {
+    background-color: black;
 }
 </style>
