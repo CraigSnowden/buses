@@ -24,11 +24,10 @@ class BusTracker {
               resolve(
                 response.data[0].services
                   .filter(route => {
-                    if (this.services.length == 0) {
-                      return true;
-                    } else {
-                      return this.services.includes(route.service_name);
-                    }
+                    return (
+                      this.services.length === 0 ||
+                      this.services.includes(route.service_name)
+                    );
                   })
                   .map(route => {
                     return {
@@ -41,14 +40,13 @@ class BusTracker {
                         ? "train"
                         : "bus",
                       departures: route.departures
-                        .sort((a, b) =>
-                          a.departure_time_unix > b.departure_time_unix ? 1 : -1
+                        .sort(
+                          (a, b) =>
+                            a.departure_time_unix - b.departure_time_unix
                         )
                         .map(dep => {
-                          return {
-                            trip_id: dep.journey_id,
-                            time: moment.unix(dep.departure_time_unix)
-                          };
+                          dep.moment = moment.unix(dep.departure_time_unix);
+                          return dep;
                         })
                     };
                   })

@@ -14,7 +14,7 @@
     <transition-group name="departures" class="departures">
       <Departure
         :departure="departure"
-        :key="departure.trip_id"
+        :key="departure.journey_id"
         v-for="departure in route.departures.slice(0, 3)"
         class="departure"
       />
