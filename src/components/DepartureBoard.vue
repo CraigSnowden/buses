@@ -37,7 +37,7 @@ export default {
         this.routes = [].concat
           .apply([], routes)
           .sort((a, b) =>
-            a.departures[0].time > b.departures[0].time ? 1 : -1
+            a.departures[0].time.isAfter(b.departures[0].time) ? 1 : -1
           );
       });
     }

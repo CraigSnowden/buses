@@ -3,12 +3,14 @@
 </template>
 
 <script>
+import moment from "moment";
+
 export default {
   name: "Departure",
   props: ["departure"],
   computed: {
     minutes: function() {
-      let minutesUntil = (this.departure.time - Date.now() / 1000) / 60;
+      let minutesUntil = this.departure.time.diff(moment(), "minutes");
       if (minutesUntil < 3) {
         return "DUE";
       }

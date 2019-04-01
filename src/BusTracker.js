@@ -1,5 +1,6 @@
 import axios from "axios";
 import RouteColors from "./RouteColors.json";
+import moment from "moment";
 
 class BusTracker {
   constructor(stop_codes, services = []) {
@@ -13,39 +14,40 @@ class BusTracker {
       this.stop_promises.push(
         new Promise((resolve, reject) => {
           axios
-            .get(`https://tfe-opendata.com/api/v1/live_bus_times/${code}`)
+            .get(
+              `https://tfeapp.com/api/Unified.3.0/departure_boards.php?stops=${code}`
+            )
             .then(response => {
               if (response.data == null) {
                 return;
               }
               resolve(
-                response.data
+                response.data[0].services
                   .filter(route => {
                     if (this.services.length == 0) {
                       return true;
                     } else {
-                      return this.services.includes(route.routeName);
+                      return this.services.includes(route.service_name);
                     }
                   })
                   .map(route => {
                     return {
-                      id: route.routeName,
-                      color: this.getServiceColor(route.routeName).color,
-                      text_color: this.getServiceColor(route.routeName)
+                      id: route.service_name,
+                      color: this.getServiceColor(route.service_name).color,
+                      text_color: this.getServiceColor(route.service_name)
                         .text_color,
                       destination: route.departures[0].destination,
-                      icon: route.routeName.startsWith("T") ? "train" : "bus",
+                      icon: route.service_name.startsWith("T")
+                        ? "train"
+                        : "bus",
                       departures: route.departures
                         .sort((a, b) =>
-                          a.departureTimeUnix > b.departureTimeUnix ? 1 : -1
-                        )
-                        .filter(
-                          dep => dep.departureTimeUnix > Date.now() / 1000
+                          a.departure_time_unix > b.departure_time_unix ? 1 : -1
                         )
                         .map(dep => {
                           return {
-                            trip_id: dep.tripId,
-                            time: dep.departureTimeUnix
+                            trip_id: dep.journey_id,
+                            time: moment.unix(dep.departure_time_unix)
                           };
                         })
                     };
