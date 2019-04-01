@@ -14,6 +14,7 @@
 import Route from "./Route.vue";
 import BusTracker from "../BusTracker.js";
 import config from "../../config.json";
+import _ from "lodash";
 
 export default {
   name: "DepartureBoard",
@@ -34,8 +35,7 @@ export default {
   methods: {
     update() {
       this.tracker.getRoutes().then(routes => {
-        this.routes = [].concat
-          .apply([], routes)
+        this.routes = _.flatten(routes)
           .sort((a, b) =>
             a.departures[0].time.isAfter(b.departures[0].time) ? 1 : -1
           );
