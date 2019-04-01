@@ -35,10 +35,9 @@ export default {
   methods: {
     update() {
       this.tracker.getRoutes().then(routes => {
-        this.routes = _.flatten(routes)
-          .sort((a, b) =>
-            a.departures[0].time.isAfter(b.departures[0].time) ? 1 : -1
-          );
+        this.routes = _.flatten(routes).sort((a, b) =>
+          a.departures[0].time.isAfter(b.departures[0].time) ? 1 : -1
+        );
       });
     }
   }
