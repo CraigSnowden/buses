@@ -4,14 +4,12 @@
       <Route :route="route" :key="route.id" v-for="route in routes" />
     </transition-group>
   </div>
-  <div class="empty" v-else>
-    <font-awesome-icon icon="bed" size="4x" />
-    <h1>No services</h1>
-  </div>
+  <Empty v-else />
 </template>
 
 <script>
 import Route from "./Route.vue";
+import Empty from "./Empty.vue";
 import BusTracker from "../BusTracker.js";
 import config from "../../config.json";
 import _ from "lodash";
@@ -26,7 +24,8 @@ export default {
     };
   },
   components: {
-    Route
+    Route,
+    Empty
   },
   mounted: function() {
     this.update();
@@ -47,10 +46,5 @@ export default {
 <style>
 .routes-move {
   transition: transform 1s;
-}
-
-.empty {
-  font-size: 4rem;
-  text-align: center;
 }
 </style>
