@@ -45,7 +45,9 @@ class BusTracker {
                             a.departure_time_unix - b.departure_time_unix
                         )
                         .map(dep => {
-                          dep.departure_time_moment = moment.unix(dep.departure_time_unix);
+                          dep.departure_time_moment = moment.unix(
+                            dep.departure_time_unix
+                          );
                           return dep;
                         })
                     };

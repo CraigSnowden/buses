@@ -35,7 +35,9 @@ export default {
     update() {
       this.tracker.getRoutes().then(routes => {
         this.routes = _.flatten(routes).sort(
-          (a, b) => a.departures[0].departure_time_moment - b.departures[0].departure_time_moment
+          (a, b) =>
+            a.departures[0].departure_time_moment -
+            b.departures[0].departure_time_moment
         );
       });
     }
