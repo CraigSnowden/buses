@@ -40,14 +40,13 @@ class BusTracker {
                         ? "train"
                         : "bus",
                       departures: route.departures
-                        .sort((a, b) =>
-                          a.departure_time_unix > b.departure_time_unix ? 1 : -1
+                        .sort(
+                          (a, b) =>
+                            a.departure_time_unix - b.departure_time_unix
                         )
                         .map(dep => {
-                          return {
-                            trip_id: dep.journey_id,
-                            time: moment.unix(dep.departure_time_unix)
-                          };
+                          dep.departure_time_moment = moment.unix(dep.departure_time_unix);
+                          return dep;
                         })
                     };
                   })
